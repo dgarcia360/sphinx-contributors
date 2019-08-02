@@ -1,4 +1,4 @@
-Copyright (c) 2018 dgarcia360.
+Copyright (c) 2018-present David Garcia (@dgarcia360).
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
