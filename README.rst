@@ -1,3 +1,7 @@
+============================
+sphinxcontrib-ghcontributors
+============================
+
 People who contribute to open-source projects could be spending their free time.
 It does not matter if it is a code change, an epic, or fixing a small typo.
 At the end of the day, this change makes the project better.
@@ -11,7 +15,7 @@ Then **sphinxcontrib-ghcontributors** directive allows you to render all the use
 .. image:: https://github.com/dgarcia360/sphinxcontrib-ghcontributors/blob/master/docs/_static/example.png
     :width: 150
 
-`Demo <>`_
+`Sphinx Demo <https://sphinxcontrib-ghcontributors.readthedocs.io/en/latest/>`_
 
 ************
 Installation
