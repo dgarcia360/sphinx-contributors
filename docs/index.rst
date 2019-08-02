@@ -2,9 +2,6 @@
 sphinxcontrib-ghcontributors
 ============================
 
-.. image:: https://travis-ci.org/dgarcia360/sphinxcontrib-ghcontributors.svg?branch=master
-    :target: https://travis-ci.org/dgarcia360/sphinxcontrib-ghcontributors
-
 **Sphinx extension to render GitHub contributors**
 
 People who contribute to open-source projects could be spending their free time.
