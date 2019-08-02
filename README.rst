@@ -2,6 +2,10 @@
 sphinxcontrib-ghcontributors
 ============================
 
+.. image:: https://travis-ci.org/dgarcia360/sphinxcontrib-ghcontributors.svg?branch=master
+    :target: https://travis-ci.org/dgarcia360/sphinxcontrib-ghcontributors
+
+
 People who contribute to open-source projects could be spending their free time.
 It does not matter if it is a code change, an epic, or fixing a small typo.
 At the end of the day, this change makes the project better.
@@ -54,4 +58,4 @@ Sphinx will render the 10 most active contributors. You can increase the number 
 
 This directive will render the less active 20 contributors, ordered in ascending order, excluding ``dgarcia360`` and ``sphinx`` usernames from the list.
 
-To see up to what point you can configure the directive, read the :doc:`complete docs <https://sphinxcontrib-ghcontributors.readthedocs.io/en/latest/>`.
+To see up to what point you can configure the directive, read the `complete docs <https://sphinxcontrib-ghcontributors.readthedocs.io/en/latest/>`_.
