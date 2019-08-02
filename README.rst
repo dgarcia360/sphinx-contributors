@@ -54,4 +54,4 @@ Sphinx will render the 10 most active contributors. You can increase the number 
 
 This directive will render the less active 20 contributors, ordered in ascending order, excluding ``dgarcia360`` and ``sphinx`` usernames from the list.
 
-To see up to what point you can configure the directive, read the :doc:`complete docs <https://sphinxcontrib-ghcontributors.readthedocs.io/en/latest/>`.
+To see up to what point you can configure the directive, read the `complete docs <https://sphinxcontrib-ghcontributors.readthedocs.io/en/latest/>`_.
