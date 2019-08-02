@@ -2,7 +2,7 @@
 sphinxcontrib-ghcontributors
 ============================
 
-**Show some ❤ to your GitHub contributors with Sphinx**
+**Sphinx extension to render GitHub contributors**
 
 People who contribute to open-source projects could be spending their free time.
 It does not matter if it is a code change, an epic, or fixing a small typo.
