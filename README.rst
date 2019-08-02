@@ -2,6 +2,9 @@
 sphinxcontrib-ghcontributors
 ============================
 
+.. image:: https://travis-ci.org/dgarcia360/sphinxcontrib-ghcontributors.svg?branch=master
+    :target: https://travis-ci.org/dgarcia360/sphinxcontrib-ghcontributors
+
 People who contribute to open-source projects could be spending their free time.
 It does not matter if it is a code change, an epic, or fixing a small typo.
 At the end of the day, this change makes the project better.
