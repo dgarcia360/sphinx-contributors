@@ -4,11 +4,11 @@ from setuptools import setup, find_packages
 
 setup(
     name='sphinxcontrib-ghcontributors',
-    version='0.1.0',
+    version='0.2.0',
     url='https://github.com/dgarcia360/sphinxcontrib-ghcontributors',
-    # download_url='http://pypi.python.org/pypi/sphinxcontrib-ghcontributors',
+    download_url='http://pypi.python.org/pypi/sphinxcontrib-ghcontributors',
     license='MIT',
-    author='dgarcia360',
+    author='David Garcia',
     author_email='dgarcia360@outlook.com',
     description='Sphinx extension for rendering the contributors list from GitHub repositories.',
     long_description="",
@@ -22,6 +22,6 @@ setup(
     platforms='any',
     include_package_data=True,
     install_requires=['Sphinx>=1.1', 'requests'],
-    packages=find_packages(),
+    packages=find_packages(exclude=['tests']),
     namespace_packages=['sphinxcontrib']
 )
