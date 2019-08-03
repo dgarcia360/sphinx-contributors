@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='sphinxcontrib-ghcontributors',
-    version='0.2.1',
+    version='0.2.2',
     url='https://github.com/dgarcia360/sphinxcontrib-ghcontributors',
     download_url='http://pypi.python.org/pypi/sphinxcontrib-ghcontributors',
     license='MIT',
@@ -23,6 +23,6 @@ setup(
     platforms='any',
     include_package_data=True,
     install_requires=['Sphinx>=1.1', 'requests'],
-    packages=find_packages(exclude=['tests']),
+    packages=find_packages(exclude=['tests', 'docs']),
     namespace_packages=['sphinxcontrib']
 )
