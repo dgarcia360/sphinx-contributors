@@ -4,9 +4,15 @@ sphinxcontrib-ghcontributors
 
 .. image:: https://badge.fury.io/py/sphinxcontrib-ghcontributors.svg
     :target: https://badge.fury.io/py/sphinxcontrib-ghcontributors
+    :alt:  PyPi Status
 
 .. image:: https://travis-ci.org/dgarcia360/sphinxcontrib-ghcontributors.svg?branch=master
     :target: https://travis-ci.org/dgarcia360/sphinxcontrib-ghcontributors
+    :alt: Travis Status
+
+.. image:: https://readthedocs.org/projects/sphinxcontrib-ghcontributors/badge/?version=latest
+    :target: https://sphinxcontrib-ghcontributors.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
 
 People who contribute to open-source projects could be spending their free time.
 It does not matter if it is a code change, an epic, or fixing a small typo.
