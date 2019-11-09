@@ -2,7 +2,6 @@
 
 
 [![PyPI version](https://badge.fury.io/py/sphinxcontrib-ghcontributors.svg)](https://badge.fury.io/py/sphinxcontrib-ghcontributors)
-
 [![Travis Status](https://travis-ci.org/dgarcia360/sphinxcontrib-ghcontributors.svg?branch=master)](https://travis-ci.org/dgarcia360/sphinxcontrib-ghcontributors)
 
 
@@ -60,6 +59,6 @@ Contributions are welcome and appreciated! Check [CONTRIBUTING.md](CONTRIBUTING.
 
 ##License
 
-Copyright (c) 2018 David Garcia ([@dgarcia360] (https://davidgarcia.dev>)).
+Copyright (c) 2018 David Garcia ([@dgarcia360](https://davidgarcia.dev>)).
 
 Licensed under MIT license (see [LICENSE.md](LICENSE.md) for details)
