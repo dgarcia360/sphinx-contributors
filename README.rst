@@ -10,10 +10,6 @@ sphinxcontrib-ghcontributors
     :target: https://travis-ci.org/dgarcia360/sphinxcontrib-ghcontributors
     :alt: Travis Status
 
-.. image:: https://readthedocs.org/projects/sphinxcontrib-ghcontributors/badge/?version=latest
-    :target: https://sphinxcontrib-ghcontributors.readthedocs.io/en/latest/?badge=latest
-    :alt: Documentation Status
-
 People who contribute to open-source projects could be spending their free time.
 It does not matter if it is a code change, an epic, or fixing a small typo.
 At the end of the day, this change makes the project better.
@@ -22,12 +18,8 @@ That's the reason why you should recognize every contribution!
 Are you using **Sphinx** to document the open-source project?
 Then **sphinxcontrib-ghcontributors** directive allows you to render all the usernames that have contributed to your repositories directly in your docs.
 
-**Example**
-
 .. image:: https://github.com/dgarcia360/sphinxcontrib-ghcontributors/blob/master/docs/_static/example.png
     :width: 150
-
-`Sphinx Demo <https://sphinxcontrib-ghcontributors.readthedocs.io/en/latest/>`_
 
 ************
 Installation
@@ -66,4 +58,19 @@ Sphinx will render the 10 most active contributors. You can increase the number 
 
 This directive will render the less active 20 contributors, ordered in ascending order, excluding ``dgarcia360`` and ``sphinx`` usernames from the list.
 
-To see up to what point you can configure the directive, read the `complete docs <https://sphinxcontrib-ghcontributors.readthedocs.io/en/latest/>`_.
+Roadmap
+=======
+
+See the `open issues <https://github.com/dgarcia360/sphinxcontrib-ghcontributors/issues>`_ for a list of proposed features.
+
+Contributing
+============
+
+Contributions are welcome and appreciated! Check `CONTRIBUTING.md  <CONTRIBUTING.md>`_ file.
+
+License
+=======
+
+Copyright (c) 2018 David Garcia (`@dgarcia360 <https://davidgarcia.dev>`_).
+
+Licensed under MIT license (see `LICENSE.md <LICENSE.md>`_ for details)

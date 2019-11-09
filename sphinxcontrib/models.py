@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 #
-# (c) 2018-present David Garcia (@dgarcia360)
+# (c) 2018 David Garcia (@dgarcia360)
 # This code is licensed under MIT license (see LICENSE.md for details)
 
 
