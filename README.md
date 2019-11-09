@@ -14,7 +14,7 @@ That's the reason why you should recognize every contribution!
 Are you using **Sphinx** to document the open-source project?
 Then **sphinxcontrib-ghcontributors** directive allows you to render all the usernames that have contributed to your repositories directly in your docs.
 
-![example](https://github.com/dgarcia360/sphinxcontrib-ghcontributors/blob/master/docs/_static/example.png)
+![example](https://github.com/dgarcia360/sphinxcontrib-ghcontributors/blob/master/docs/example.png)
 
 ## Installation
 
