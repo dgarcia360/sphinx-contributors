@@ -1,9 +1,7 @@
 # sphinxcontrib-ghcontributors
 
-
 [![PyPI version](https://badge.fury.io/py/sphinxcontrib-ghcontributors.svg)](https://badge.fury.io/py/sphinxcontrib-ghcontributors)
 [![Travis Status](https://travis-ci.org/dgarcia360/sphinxcontrib-ghcontributors.svg?branch=master)](https://travis-ci.org/dgarcia360/sphinxcontrib-ghcontributors)
-
 
 People who contribute to open-source projects could be spending their free time.
 It does not matter if it is a code change, an epic, or fixing a small typo.
