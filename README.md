@@ -57,7 +57,7 @@ See the [open issues](https://github.com/dgarcia360/sphinxcontrib-ghcontributors
 
 Contributions are welcome and appreciated! Check [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
-##License
+## License
 
 Copyright (c) 2018 David Garcia ([@dgarcia360](https://davidgarcia.dev>)).
 
