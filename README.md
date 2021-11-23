@@ -17,32 +17,31 @@ Then **sphinxcontrib-ghcontributors** directive allows you to render all the use
 
 1. Install sphinxcontrib-ghcontributors using pip.
 
-```
-pip install sphinxcontrib-ghcontributors
-```
+   ```bash
+   pip install sphinxcontrib-ghcontributors
+   ```
 
 2. Add the extension to your Sphinx project ``conf.py`` file.
 
-```
-extensions = ['sphinxcontrib.ghcontributors']
-```
+   ```python
+   extensions = ['sphinxcontrib.ghcontributors']
+   ```
 
-Usage
-=====
+## Usage
 
-The extension defines the directive `ghcontributors`. For each repository that you want to render its contributors, state the Github username and the repository name.
+The extension defines the directive ``ghcontributors``. For each repository that you want to render its contributors, state the Github username and the repository name.
 
-```
+```rst
 ..  ghcontributors:: dgarcia360/sphinxcontrib-ghcontributors
 ```
 
 Sphinx will render the 10 most active contributors. You can increase the number of results to show, and as well exclude some users from the list adding optional filters.
 
-```
-    ..  ghcontributors:: dgarcia360/sphinxcontrib-ghcontributors
-        :limit: 20
-        :order: ASC
-        :exclude: dgarcia360,sphinx
+```rst
+..  ghcontributors:: dgarcia360/sphinxcontrib-ghcontributors
+    :limit: 20
+    :order: ASC
+    :exclude: dgarcia360,sphinx
 ```
 
 This directive will render the less active 20 contributors, ordered in ascending order, excluding ``dgarcia360`` and ``sphinx`` usernames from the list.
