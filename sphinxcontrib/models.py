@@ -9,17 +9,21 @@ from docutils import nodes
 
 class Contributor:
 
-    def __init__(self, login, url, contributions=0):
+    def __init__(self, login, url, contributions=0, avatar_url=''):
         self.contributions = contributions
         self.login = login
         self.url = url
         self.contributions = contributions
+        self.avatar_url = avatar_url
 
     def build(self):
         node_contributor = nodes.paragraph()
+        if self.avatar_url:
+            node_contributor += nodes.image(uri=self.avatar_url)
         node_contributor += nodes.reference(text=self.login, refuri=self.url)
-        node_contributor += nodes.Text(' - ' + str(self.contributions) + ' ' +
-                                       ('contributions' if self.contributions != 1 else 'contribution'))
+        if self.contributions:
+            node_contributor += nodes.Text(' - ' + str(self.contributions) + ' ' +
+                                           ('contributions' if self.contributions != 1 else 'contribution'))
         return node_contributor
 
 
@@ -32,6 +36,7 @@ class ContributorsRepository:
 
     def build(self):
         node_list = nodes.bullet_list()
+        node_list['classes'].append('ghcontributors')
         for contributor in self.contributors:
             node_contributor = nodes.list_item()
             node_contributor += contributor.build()
