@@ -1,7 +1,7 @@
 Installation
 ============
 
-.. important:: This project is compatible with Sphinx 1.1+ using Python 2.7+ and 3.0+.
+.. important:: This project is compatible with Sphinx 1.6+ using Python 2.7+ and 3.0+.
 
 #. Install ``sphinxcontrib-ghcontributors`` using PIP.
 
