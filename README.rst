@@ -30,7 +30,7 @@ Using the directive:
 
 .. code-block:: rst
 
-   ..  ghcontributors:: dgarcia360/sphinxcontrib-ghcontributors
+   ..  ghcontributors:: sphinx-doc/sphinx
 
 Renders:
 
