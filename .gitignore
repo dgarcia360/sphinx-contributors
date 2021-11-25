@@ -2,4 +2,5 @@
 .DS_Store
 *pyc
 .pypirc
-docs/_build
+docs/build
+venv
