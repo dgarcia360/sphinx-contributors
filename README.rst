@@ -5,7 +5,7 @@ sphinxcontrib-ghcontributors
 
 Example:
 
-.. image:: https://raw.githubusercontent.com/dgarcia360/sphinxcontrib-ghcontributors/master/docs/_static/example-avatars.png
+.. image:: https://raw.githubusercontent.com/dgarcia360/sphinxcontrib-ghcontributors/master/docs/source/_static/example_avatars.png
 
 Installation
 ------------
@@ -34,9 +34,7 @@ Using the directive:
 
 Renders:
 
-.. code-block:: rst
-
-   .. image:: https://raw.githubusercontent.com/dgarcia360/sphinxcontrib-ghcontributors/master/docs/_static/example.png
+.. image:: https://raw.githubusercontent.com/dgarcia360/sphinxcontrib-ghcontributors/master/docs/source/_static/example.png
 
 Check out the full documentation for more customizable options at https://sphinxcontrib-ghcontributors.readthedocs.io/
 
