@@ -1,16 +1,26 @@
 Overview
 ========
 
-``sphinxcontrib-ghcontributors`` is a Sphinx extension that helps you recognize the people who have contributed to an open-source project.
+sphinx-contributors
+===================
 
-Documentation:
-   https://sphinxcontrib-ghcontributors.readthedocs.io/
+``sphinx-contributors`` is a Sphinx extension that helps you recognize the people who have contributed to an open-source project.
 
-Source code and issue tracker:
-   https://github.com/dgarcia360/sphinxcontrib-ghcontributors
+Features
+---------
 
-Package distribution:
-   https://pypi.org/project/sphinxcontrib-ghcontributors
+**Promote contributions**
+
+The extension retrieves from GitHub the list of users who have contributed to a repository.
+
+**Configurable**
+
+The extension lets you define the number of contributors to show and sort them by the number of commits.
+
+Supported platforms
+---------------------
+
+``sphinx-contributors`` only works with GitHub public repositories.
 
 Get started
 -----------
@@ -22,6 +32,7 @@ Get started
    usage
    customization
    who-is-using-it
+   reference
    contribute
 
 Thanks to
@@ -29,14 +40,14 @@ Thanks to
 
 This extension exists thanks to the following contributors:
 
-.. rst-class:: ghcontributors-avatar
+.. rst-class:: contributors-avatar
 
-.. ghcontributors:: dgarcia360/sphinxcontrib-ghcontributors
+.. contributors:: dgarcia360/sphinx-contributors
    :avatars:
 
 License
 -------
 
-Copyright (c) 2018 David Garcia (`@dgarcia360 <https://davidgarcia.dev>`_).
+Copyright (c) 2018 - present David Garcia (`@dgarcia360 <https://twitter.com/dgarcia360>`_).
 
-Licensed under MIT license (see `LICENSE.md <LICENSE.md>`_ for details).
+Licensed under the `MIT License <https://github.com/dgarcia360/sphinx-contributors/blob/main/LICENSE.md>`_.

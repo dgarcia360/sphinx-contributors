@@ -1,0 +1,19 @@
+[build-system]
+requires = ["flit_core >=2,<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.flit.metadata]
+module = "sphinx_contributors"
+author = "David Garcia"
+author-email = "hi@davidgarcia.dev"
+home-page = "https://github.com/dgarcia360/sphinx-contributors"
+description-file = "README.rst"
+requires-python = ">=3.7"
+requires = ["sphinx >= 3"]
+
+[tool.flit.metadata.requires-extra]
+test = [
+  "pre-commit",
+  "pytest",
+]
+doc = ["furo"]

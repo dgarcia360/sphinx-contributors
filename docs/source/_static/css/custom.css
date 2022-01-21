@@ -1,18 +1,18 @@
-.ghcontributors-avatar {
+.contributors-avatar {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
 }
 
-.ghcontributors-avatar li {
+.contributors-avatar li {
     list-style: none;
     text-align: center;
 }
 
-.ghcontributors-avatar li img {
+.contributors-avatar li img {
     max-width: 150px;
 }
 
-.ghcontributors-avatar li a {
+.contributors-avatar li a {
     display: block;
 }

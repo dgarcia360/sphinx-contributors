@@ -1,6 +1,13 @@
-.idea
+.coverage
 .DS_Store
-*pyc
+.eggs
+.idea
 .pypirc
+.pytest_cache
+*pyc
+*.egg-info
+coverage.xml
+dist
 docs/build
+__pycache__
 venv
