@@ -8,8 +8,8 @@ from datetime import date
 
 # -- Project information -----------------------------------------------------
 
-docstitle = "sphinx-collapse"
-project = "sphinx-collapse"
+docstitle = "sphinx-contributors"
+project = "sphinx-contributors"
 copyright = str(date.today().year) + ", David Garcia. All rights reserved."
 author = "David Garcia"
 
