@@ -25,7 +25,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: "Install dependencies"
         run: |
-          python -m pip install .[test]
+          python -m pip install .[test,doc]
       - name: "Lint code"
         run: |
           pre-commit run --all-files
