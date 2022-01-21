@@ -8,13 +8,13 @@ sphinx-contributors
 Features
 ---------
 
-**Promote contributions**
+**Celebrate contributions**
 
-The extension retrieves from GitHub the list of users who have contributed to a repository.
+Show in your docs the list of users who have contributed to a repository.
 
 **Configurable**
 
-The extension lets you define the number of contributors to show and sort them by the number of commits.
+Choose the number of contributors to show and sort them by number of commits.
 
 Supported platforms
 ---------------------
