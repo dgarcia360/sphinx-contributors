@@ -2,7 +2,7 @@ Reference
 =========
 
 Contributors directive
-======================
+----------------------
 
 .. rst:directive:: .. contributors:: username/repository
 
