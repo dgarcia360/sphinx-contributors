@@ -4,9 +4,9 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [master]
   pull_request:
-    branches: [main]
+    branches: [master]
 
 jobs:
   build:
@@ -20,12 +20,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: "Set up Python"
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v2.3.1
         with:
           python-version: ${{ matrix.python-version }}
       - name: "Install dependencies"
         run: |
-          python -m pip install .[test]
+          python -m pip install .[test,doc]
       - name: "Lint code"
         run: |
           pre-commit run --all-files
