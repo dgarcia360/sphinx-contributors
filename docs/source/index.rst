@@ -11,11 +11,11 @@ Features
 
 **Celebrate contributions**
 
-Show in your docs the list of users who have contributed to a repository.
+Show the list of users who have contributed to a repository in your docs.
 
 **Configurable**
 
-Choose the number of contributors to show and sort them by number of commits.
+Choose how many contributors show and sort them by the number of commits.
 
 Supported platforms
 ---------------------
