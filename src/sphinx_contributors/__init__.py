@@ -72,14 +72,17 @@ class ContributorsDirective(Directive):
     def run(self):
         limit = self.options.get("limit", 10)
         order = self.options.get("order", "DESC") == "DESC"
+        providers = self.options.get("providers", "github")
         exclude = self.options.get("exclude", "").split(",")
         use_avatars = "avatars" in self.options
         show_contributions = "contributions" in self.options
 
         contributors = []
+        api_url = "api.github.com" if providers == "github" else "gitlab.api.com"
+
         try:
             r = requests.get(
-                "https://api.github.com/repos/"
+                "https://"+ api_url + "/repos/"
                 + self.arguments[0]
                 + "/contributors?per_page=100"
             )
