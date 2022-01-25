@@ -8,31 +8,29 @@ This example renders the top 5 contributors from the repository ``sphinx-doc/sph
 .. code-block:: rst
 
   .. contributors:: sphinx-doc/sphinx
+      :contributions:
+      :exclude: dgarcia360,sphinx
       :limit: 5
       :order: DESC
-      :exclude: dgarcia360,sphinx
-      :contributions:
 
 .. contributors:: sphinx-doc/sphinx
+    :contributions:
+    :exclude: dgarcia360,sphinx
     :limit: 5
     :order: DESC
-    :exclude: dgarcia360,sphinx
-    :contributions:
 
 This example renders the contributors avatars, whithout showing the number of contributions:
 
 .. code-block:: rst
 
   .. contributors:: sphinx-doc/sphinx
+      :avatars:
       :limit: 5
       :order: ASC
-      :avatars:
-
-.. rst-class:: contributors-avatar
 
 .. contributors:: sphinx-doc/sphinx
+    :avatars:
     :limit: 5
     :order: ASC
-    :avatars:
 
 For more information on how to style the list, see :doc:`Customization <customization>`.

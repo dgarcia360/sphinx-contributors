@@ -40,10 +40,9 @@ Thanks to
 
 This extension exists thanks to the following contributors:
 
-.. rst-class:: contributors-avatar
-
 .. contributors:: dgarcia360/sphinx-contributors
    :avatars:
+   :exclude: dependabot
 
 License
 -------
