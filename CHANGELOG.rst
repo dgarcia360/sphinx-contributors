@@ -7,6 +7,14 @@ All notable changes to this project will be documented in this file.
 The format is based on `Keep a Changelog <https://keepachangelog.com/en/1.0.0/>`_,
 and this project adheres to `Semantic Versioning <https://semver.org/spec/v2.0.0.html>`_.
 
+[0.2.5] - 25 January 2022
+=========================
+
+Added
+-----
+
+- Default CSS for lists.
+
 [0.2.4] - 21 January 2022
 =========================
 
@@ -17,6 +25,7 @@ Added
 
 Updated
 -------
+
 - Breaking change: The package is now named ``sphinx-contributors``.
 - Breaking change: The required Sphinx version is at least 3.0.
 - Replaced Travis CI for GitHub Actions.
