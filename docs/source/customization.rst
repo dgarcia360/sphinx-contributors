@@ -6,13 +6,12 @@ This makes the list is highly customizable through CSS.
 
 .. tip:: See how to `add custom CSS to Sphinx Documentation <https://docs.readthedocs.io/en/stable/guides/adding-custom-css.html>`_.
 
-For example, the following CSS snippet makes the images round and smaller:
+For example, the following CSS snippet makes the images round:
 
 .. code-block:: css
 
   .sphinx-contributors img {
       border-radius: 50%;
-      max-width: 60px;
   }
 
 .. rst-class:: custom-contributors

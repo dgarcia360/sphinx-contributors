@@ -1,1 +1,1 @@
-sphinx-contributors[doc]
+..[doc]
