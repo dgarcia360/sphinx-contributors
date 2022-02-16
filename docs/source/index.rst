@@ -35,14 +35,17 @@ Get started
    reference
    contribute
 
-Thanks to
----------
+Contributing
+------------
 
-This extension exists thanks to the following contributors:
+We encourage public contributions!
+Please review `CONTRIBUTING <https://sphinx-contributors.readthedocs.io/en/latest/contribute.html>`_ for details on our code of conduct and development process.
+
+**THANK YOU TO THE CONTRIBUTORS OF SPHINX-CONTRIBUTORS!**
 
 .. contributors:: dgarcia360/sphinx-contributors
    :avatars:
-   :exclude: dependabot
+   :exclude: dependabot[bot]
 
 License
 -------
