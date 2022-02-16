@@ -1,9 +1,6 @@
 Overview
 ========
 
-sphinx-contributors
-===================
-
 ``sphinx-contributors`` is a Sphinx extension that helps you recognize the people who have contributed to an open-source project.
 
 Features
