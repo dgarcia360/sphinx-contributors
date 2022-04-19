@@ -10,6 +10,9 @@ DeerLab:
 FIRST Robotics Competition:
     https://docs.wpilib.org/en/stable/docs/contributing/frc-docs/top-contributors.html
 
+KubeInit:
+    https://docs.kubeinit.org/index.html?highlight=contributors#contributors
+
 Symbol:
     https://docs.symbolplatform.com/contribute/authors.html
 
