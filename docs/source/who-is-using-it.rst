@@ -16,5 +16,5 @@ KubeInit:
 Symbol:
     https://docs.symbolplatform.com/contribute/authors.html
 
-PhotoVision:
-    https://docs.photonvision.org/en/latest/docs/other/contributing/photonvision-docs/top-contributors.html
+PhotonVision:
+    https://docs.photonvision.org/en/latest/docs/contributing/photonvision-docs/top-contributors.html
