@@ -13,8 +13,12 @@ FIRST Robotics Competition:
 KubeInit:
     https://docs.kubeinit.org/index.html?highlight=contributors#contributors
 
+Sphinx Sitemap:
+    https://sphinx-sitemap.readthedocs.io/en/latest/contributing.html#current-contributors
+
 Symbol:
-    https://docs.symbolplatform.com/contribute/authors.html
+    https://docs.symbol.dev/contribute/authors.html
+
 
 PhotonVision:
     https://docs.photonvision.org/en/latest/docs/contributing/photonvision-docs/top-contributors.html

@@ -4,7 +4,7 @@ Contributors extension for Sphinx.
 # This code is licensed under MIT license (see LICENSE.md for details)
 """
 
-__version__ = "0.2.6"
+__version__ = "0.2.7"
 
 from pathlib import Path
 
