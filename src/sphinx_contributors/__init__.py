@@ -138,3 +138,9 @@ def setup(app):
         "builder-inited", (lambda app: app.config.html_static_path.append(static_dir))
     )
     app.add_css_file("sphinx_contributors.css")
+
+    return {
+        'version': __version__,
+        'parallel_read_safe': True,
+        'parallel_write_safe': True,
+    }
