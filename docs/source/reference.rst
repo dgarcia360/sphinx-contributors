@@ -33,3 +33,10 @@ Contributors directive
       Whether to show the total number of contributions by each user or not.
 
       .. versionadded:: 0.2.3
+
+    .. rst:directive:option:: exclude
+      :type: string
+
+      Comma seperated usernames to exlude from the list of contributors, for example: ``dependabot[bot],pre-commit-ci[bot]``.
+
+      .. versionadded:: 0.2.0
