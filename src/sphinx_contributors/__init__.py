@@ -76,7 +76,6 @@ class ContributorsRepository:
 
 
 class ContributorsDirective(Directive):
-
     has_content = True
     required_arguments = 1
     optional_arguments = 0
@@ -140,7 +139,7 @@ def setup(app):
     app.add_css_file("sphinx_contributors.css")
 
     return {
-        'version': __version__,
-        'parallel_read_safe': True,
-        'parallel_write_safe': True,
+        "version": __version__,
+        "parallel_read_safe": True,
+        "parallel_write_safe": True,
     }
