@@ -18,7 +18,7 @@ Insight Toolkit:
 meson-python:
     https://meson-python.readthedocs.io/en/latest/index.html#contributors
 MIRACL:
-    https://miracl.readthedocs.io/en/latest/about/acknowledgements.html    
+    https://miracl.readthedocs.io/en/latest/about/acknowledgements.html
 Parfive:
     https://parfive.readthedocs.io/en/stable/#contributors
 Sphinx Sitemap:
