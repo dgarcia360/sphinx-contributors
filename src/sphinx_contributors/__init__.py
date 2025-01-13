@@ -93,7 +93,7 @@ class ContributorsDirective(Directive):
         use_avatars = "avatars" in self.options
         class_name = self.options.get("class_name", "sphinx-contributors")
         show_contributions = "contributions" in self.options
-        exclude = self.options.get("exclude", "").split(",")
+        exclude = [_exclude.strip() for _exclude in self.options.get("exclude", "").split(",")]
         limit = self.options.get("limit", 10)
         order = self.options.get("order", "DESC") == "DESC"
 
