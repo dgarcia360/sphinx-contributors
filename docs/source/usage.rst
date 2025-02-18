@@ -19,7 +19,7 @@ This example renders the top 5 contributors from the repository ``sphinx-doc/sph
     :limit: 5
     :order: DESC
 
-This example renders the contributors avatars, whithout showing the number of contributions:
+This example renders the contributors avatars, without showing the number of contributions:
 
 .. code-block:: rst
 
