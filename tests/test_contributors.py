@@ -177,6 +177,7 @@ def test_multiple_repositories(mock_get) -> None:
             "avatar_url": "",
         },
     ]
+    mock_repo1.links = {}
     mock_repo2 = MagicMock()
     mock_repo2.json.return_value = [
         {
@@ -192,6 +193,7 @@ def test_multiple_repositories(mock_get) -> None:
             "avatar_url": "",
         },
     ]
+    mock_repo2.links = {}
     mock_get.side_effect = [mock_repo1, mock_repo2]
 
     directive = ContributorsDirective.__new__(ContributorsDirective)
@@ -226,6 +228,7 @@ def test_single_repository_unchanged(mock_get) -> None:
             "avatar_url": "",
         },
     ]
+    mock_response.links = {}
     mock_get.return_value = mock_response
 
     directive = ContributorsDirective.__new__(ContributorsDirective)
@@ -258,6 +261,7 @@ def test_include_adds_new_contributors(mock_get) -> None:
             "avatar_url": "",
         },
     ]
+    mock_repo_response.links = {}
     mock_user_response = MagicMock()
     mock_user_response.json.return_value = {
         "html_url": "https://github.com/newuser",
@@ -295,6 +299,7 @@ def test_include_does_not_duplicate_existing(mock_get) -> None:
             "avatar_url": "",
         },
     ]
+    mock_repo_response.links = {}
     mock_get.return_value = mock_repo_response
 
     directive = ContributorsDirective.__new__(ContributorsDirective)
@@ -326,6 +331,7 @@ def test_contributor_directive(mock_get, tmp_path: Path) -> None:
             "avatar_url": "https://github.com/testuser.png",
         },
     ]
+    mock_response.links = {}
     mock_get.return_value = mock_response
 
     source_directory = tmp_path / "source"
