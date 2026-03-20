@@ -25,6 +25,26 @@ def test_contributor_build() -> None:
     assert contributor.astext() == "dgarcia360\n\n10 contributions"
 
 
+def test_contributor_build_with_name() -> None:
+    """
+    A contributor with a name displays the name instead of login.
+    """
+    contributor = Contributor(
+        "dgarcia360", "http://#", contributions=5, name="David Garcia"
+    ).build(_CLASS_NAME)
+    assert contributor.astext() == "David Garcia\n\n5 contributions"
+
+
+def test_contributor_build_with_empty_name() -> None:
+    """
+    A contributor with an empty name falls back to login.
+    """
+    contributor = Contributor("dgarcia360", "http://#", contributions=5, name="").build(
+        _CLASS_NAME
+    )
+    assert contributor.astext() == "dgarcia360\n\n5 contributions"
+
+
 def test_contributor_build_with_no_contribution() -> None:
     """
     Create a contributor with no contributions.
