@@ -111,26 +111,32 @@ class ContributorsDirective(Directive):
         limit = self.options.get("limit", 10)
         order = self.options.get("order", "DESC") == "DESC"
 
-        contributors = []
-        try:
-            r = requests.get(
-                "https://api.github.com/repos/"
-                + self.arguments[0]
-                + "/contributors?per_page=100"
-            )
-            contributors = list(
-                map(
-                    lambda c: Contributor(
-                        c.get("login"),
-                        c.get("html_url"),
-                        c.get("contributions") if show_contributions else 0,
-                        c.get("avatar_url") if use_avatars else "",
-                    ),
-                    r.json(),
+        repositories = self.arguments[0].split()
+        contributors_by_login = {}
+        for repo_name in repositories:
+            try:
+                r = requests.get(
+                    "https://api.github.com/repos/"
+                    + repo_name
+                    + "/contributors?per_page=100"
                 )
-            )
-        except Exception:
-            logger.warning("The repository " + self.arguments[0] + " does not exist.")
+                for c in r.json():
+                    login = c.get("login")
+                    if login in contributors_by_login:
+                        if show_contributions:
+                            contributors_by_login[login].contributions += c.get(
+                                "contributions", 0
+                            )
+                    else:
+                        contributors_by_login[login] = Contributor(
+                            login,
+                            c.get("html_url"),
+                            c.get("contributions") if show_contributions else 0,
+                            c.get("avatar_url") if use_avatars else "",
+                        )
+            except Exception:
+                logger.warning("The repository " + repo_name + " does not exist.")
+        contributors = list(contributors_by_login.values())
 
         existing_logins = {c.login for c in contributors}
         for login in include:

@@ -4,7 +4,17 @@ Reference
 Contributors directive
 ----------------------
 
-.. rst:directive:: .. contributors:: username/repository
+.. rst:directive:: .. contributors:: username/repository [username/repository ...]
+
+    One or more GitHub repositories, separated by spaces. When multiple repositories are specified, contributors are merged into a single list and contribution counts are summed for users who appear in more than one repository.
+
+    .. code-block:: rst
+
+       .. contributors:: dgarcia360/sphinx-contributors dgarcia360/other-repo
+          :contributions:
+
+    .. versionchanged:: 0.2.8
+       Multiple repositories can now be specified.
 
     .. rst:directive:option:: limit
       :type: integer
