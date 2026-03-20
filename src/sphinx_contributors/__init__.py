@@ -17,12 +17,16 @@ logger = logging.getLogger(__name__)
 
 
 class Contributor:
-    def __init__(self, login, url, contributions=0, avatar_url=""):
+    def __init__(self, login, url, contributions=0, avatar_url="", name=""):
         self.contributions = contributions
         self.login = login
         self.url = url
-        self.contributions = contributions
         self.avatar_url = avatar_url
+        self.name = name
+
+    @property
+    def display_name(self):
+        return self.name or self.login
 
     def build(self, class_name):
         container_class = class_name + "_contributor"
@@ -36,7 +40,7 @@ class Contributor:
             node_container += nodes.image(uri=self.avatar_url, classes=[image_class])
 
         node_username = nodes.paragraph(classes=[username_class])
-        node_username += nodes.reference(text=self.login, refuri=self.url)
+        node_username += nodes.reference(text=self.display_name, refuri=self.url)
         node_container += node_username
 
         if self.contributions:
@@ -86,6 +90,7 @@ class ContributorsDirective(Directive):
         "contributions": directives.flag,
         "exclude": directives.unchanged,
         "limit": directives.positive_int,
+        "names": directives.flag,
         "order": directives.unchanged,
     }
 
@@ -93,6 +98,7 @@ class ContributorsDirective(Directive):
         use_avatars = "avatars" in self.options
         class_name = self.options.get("class_name", "sphinx-contributors")
         show_contributions = "contributions" in self.options
+        show_names = "names" in self.options
         exclude = [
             _exclude.strip() for _exclude in self.options.get("exclude", "").split(",")
         ]
@@ -119,15 +125,25 @@ class ContributorsDirective(Directive):
             )
         except Exception:
             logger.warning("The repository " + self.arguments[0] + " does not exist.")
-        return [
-            ContributorsRepository(
-                contributors,
-                reverse=order,
-                limit=limit,
-                exclude=exclude,
-                avatars=use_avatars,
-            ).build(class_name)
-        ]
+        repo = ContributorsRepository(
+            contributors,
+            reverse=order,
+            limit=limit,
+            exclude=exclude,
+            avatars=use_avatars,
+        )
+
+        if show_names:
+            for contributor in repo.contributors:
+                try:
+                    user = requests.get(
+                        "https://api.github.com/users/" + contributor.login
+                    ).json()
+                    contributor.name = user.get("name") or ""
+                except Exception:
+                    pass
+
+        return [repo.build(class_name)]
 
 
 def setup(app):

@@ -34,6 +34,13 @@ Contributors directive
 
       .. versionadded:: 0.2.3
 
+    .. rst:directive:option:: names
+      :type: boolean
+
+      Whether to display real names (fetched from GitHub user profiles) instead of usernames. Falls back to the username if the user has not set a name on their GitHub profile.
+
+      .. versionadded:: 0.2.8
+
     .. rst:directive:option:: exclude
       :type: string
 
