@@ -4,8 +4,9 @@ Contributors extension for Sphinx.
 # This code is licensed under MIT license (see LICENSE.md for details)
 """
 
-__version__ = "0.2.7"
+__version__ = "0.2.8"
 
+import os
 from pathlib import Path
 
 import requests
@@ -14,6 +15,13 @@ from docutils.parsers.rst import Directive, directives
 from sphinx.util import logging
 
 logger = logging.getLogger(__name__)
+
+
+def _github_headers():
+    token = os.environ.get("GITHUB_TOKEN")
+    if token:
+        return {"Authorization": "token " + token}
+    return {}
 
 
 class Contributor:
@@ -118,7 +126,8 @@ class ContributorsDirective(Directive):
                 r = requests.get(
                     "https://api.github.com/repos/"
                     + repo_name
-                    + "/contributors?per_page=100"
+                    + "/contributors?per_page=100",
+                    headers=_github_headers(),
                 )
                 for c in r.json():
                     login = c.get("login")
@@ -143,7 +152,10 @@ class ContributorsDirective(Directive):
             if login in existing_logins:
                 continue
             try:
-                user = requests.get("https://api.github.com/users/" + login).json()
+                user = requests.get(
+                    "https://api.github.com/users/" + login,
+                    headers=_github_headers(),
+                ).json()
                 contributors.append(
                     Contributor(
                         login,
@@ -167,7 +179,8 @@ class ContributorsDirective(Directive):
             for contributor in repo.contributors:
                 try:
                     user = requests.get(
-                        "https://api.github.com/users/" + contributor.login
+                        "https://api.github.com/users/" + contributor.login,
+                        headers=_github_headers(),
                     ).json()
                     contributor.name = user.get("name") or ""
                 except Exception:
