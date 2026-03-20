@@ -11,3 +11,4 @@ dist
 docs/build
 __pycache__
 venv
+.python-version
