@@ -89,6 +89,7 @@ class ContributorsDirective(Directive):
         "class_name": directives.unchanged,
         "contributions": directives.flag,
         "exclude": directives.unchanged,
+        "include": directives.unchanged,
         "limit": directives.positive_int,
         "names": directives.flag,
         "order": directives.unchanged,
@@ -101,6 +102,11 @@ class ContributorsDirective(Directive):
         show_names = "names" in self.options
         exclude = [
             _exclude.strip() for _exclude in self.options.get("exclude", "").split(",")
+        ]
+        include = [
+            _include.strip()
+            for _include in self.options.get("include", "").split(",")
+            if _include.strip()
         ]
         limit = self.options.get("limit", 10)
         order = self.options.get("order", "DESC") == "DESC"
@@ -125,6 +131,24 @@ class ContributorsDirective(Directive):
             )
         except Exception:
             logger.warning("The repository " + self.arguments[0] + " does not exist.")
+
+        existing_logins = {c.login for c in contributors}
+        for login in include:
+            if login in existing_logins:
+                continue
+            try:
+                user = requests.get("https://api.github.com/users/" + login).json()
+                contributors.append(
+                    Contributor(
+                        login,
+                        user.get("html_url", "https://github.com/" + login),
+                        0,
+                        user.get("avatar_url", "") if use_avatars else "",
+                    )
+                )
+            except Exception:
+                logger.warning("Could not fetch user: " + login)
+
         repo = ContributorsRepository(
             contributors,
             reverse=order,

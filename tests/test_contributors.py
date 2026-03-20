@@ -156,6 +156,74 @@ def test_contributor_repository_build_exclude() -> None:
 
 
 @patch("sphinx_contributors.requests.get")
+def test_include_adds_new_contributors(mock_get) -> None:
+    """
+    The include option adds contributors not already in the list.
+    """
+    from sphinx_contributors import ContributorsDirective
+
+    mock_repo_response = MagicMock()
+    mock_repo_response.json.return_value = [
+        {
+            "login": "existing",
+            "html_url": "https://github.com/existing",
+            "contributions": 5,
+            "avatar_url": "",
+        },
+    ]
+    mock_user_response = MagicMock()
+    mock_user_response.json.return_value = {
+        "html_url": "https://github.com/newuser",
+        "avatar_url": "https://github.com/newuser.png",
+    }
+    mock_get.side_effect = [mock_repo_response, mock_user_response]
+
+    directive = ContributorsDirective.__new__(ContributorsDirective)
+    directive.arguments = ["owner/repo"]
+    directive.options = {"include": "newuser"}
+    directive.content = []
+    directive.lineno = 0
+    directive.state = MagicMock()
+    directive.state_machine = MagicMock()
+
+    result = directive.run()
+    text = result[0].astext()
+    assert "existing" in text
+    assert "newuser" in text
+
+
+@patch("sphinx_contributors.requests.get")
+def test_include_does_not_duplicate_existing(mock_get) -> None:
+    """
+    The include option does not duplicate a contributor already returned by the API.
+    """
+    from sphinx_contributors import ContributorsDirective
+
+    mock_repo_response = MagicMock()
+    mock_repo_response.json.return_value = [
+        {
+            "login": "existing",
+            "html_url": "https://github.com/existing",
+            "contributions": 5,
+            "avatar_url": "",
+        },
+    ]
+    mock_get.return_value = mock_repo_response
+
+    directive = ContributorsDirective.__new__(ContributorsDirective)
+    directive.arguments = ["owner/repo"]
+    directive.options = {"include": "existing"}
+    directive.content = []
+    directive.lineno = 0
+    directive.state = MagicMock()
+    directive.state_machine = MagicMock()
+
+    result = directive.run()
+    text = result[0].astext()
+    assert text.count("existing") == 1
+
+
+@patch("sphinx_contributors.requests.get")
 def test_contributor_directive(mock_get, tmp_path: Path) -> None:
     """
     The ``contributors`` directive runs with no errors.

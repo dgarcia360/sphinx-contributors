@@ -41,9 +41,20 @@ Contributors directive
 
       .. versionadded:: 0.2.8
 
+    .. rst:directive:option:: include
+      :type: string
+
+      Comma separated GitHub usernames to add to the list of contributors. This is useful for including people who contributed via ``Co-authored-by`` commit trailers, since the GitHub REST API does not count those as contributors. Already listed contributors are not duplicated. For example: ``dgarcia360,otheruser``.
+
+      .. versionadded:: 0.2.8
+
     .. rst:directive:option:: exclude
       :type: string
 
       Comma seperated usernames to exlude from the list of contributors, for example: ``dependabot[bot],pre-commit-ci[bot]``.
 
       .. versionadded:: 0.2.0
+
+    .. note::
+
+       The GitHub REST API used by this extension does not include contributors added via ``Co-authored-by`` commit trailers. Use the ``:include:`` option to manually add those contributors.
