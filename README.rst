@@ -21,6 +21,8 @@ Supported platforms
 
 ``sphinx-contributors`` only works with GitHub public repositories.
 
+Requires Python 3.10+ and Sphinx 5.0+.
+
 Installation
 ------------
 

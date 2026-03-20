@@ -8,10 +8,19 @@ author = "David Garcia"
 author-email = "hi@davidgarcia.dev"
 home-page = "https://github.com/dgarcia360/sphinx-contributors"
 description-file = "README.rst"
-requires-python = ">=3.7"
-requires = ["sphinx >= 3"]
+requires-python = ">=3.10"
+requires = [
+  "sphinx >= 5",
+  "requests",
+]
 classifiers=[
   "Framework :: Sphinx :: Extension",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
 ]
 
 [tool.flit.metadata.requires-extra]
@@ -20,3 +29,6 @@ test = [
   "pytest",
 ]
 doc = ["furo"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
