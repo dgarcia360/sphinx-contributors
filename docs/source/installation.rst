@@ -1,7 +1,7 @@
 Installation
 ============
 
-.. important:: sphinx-contributors is compatible with Sphinx 3.0+ using Python 3.7+.
+.. important:: sphinx-contributors is compatible with Sphinx 5.0+ using Python 3.10+.
 
 #. Install ``sphinx-contributors`` using PIP.
 

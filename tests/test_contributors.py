@@ -1,15 +1,16 @@
 """
-Tests for collapse extension.
+Tests for sphinx-contributors extension.
 (c) 2022 - present David Garcia (@dgarcia360)
 # This code is licensed under MIT license (see LICENSE.md for details)
 """
 
-import subprocess
-import sys
 from pathlib import Path
 from textwrap import dedent
+from unittest.mock import MagicMock, patch
 
-from src.sphinx_contributors import Contributor, ContributorsRepository
+from sphinx.application import Sphinx
+
+from sphinx_contributors import Contributor, ContributorsRepository
 
 _CLASS_NAME = "sphinx_contributors"
 
@@ -134,10 +135,24 @@ def test_contributor_repository_build_exclude() -> None:
     assert contributor_repository.astext() == "dgarcia360\n\n2 contributions"
 
 
-def test_contributor_directive(tmp_path: Path) -> None:
+@patch("sphinx_contributors.requests.get")
+def test_contributor_directive(mock_get, tmp_path: Path) -> None:
     """
     The ``contributors`` directive runs with no errors.
+
+    Uses a mocked GitHub API response so the test works without network access.
     """
+    mock_response = MagicMock()
+    mock_response.json.return_value = [
+        {
+            "login": "testuser",
+            "html_url": "https://github.com/testuser",
+            "contributions": 42,
+            "avatar_url": "https://github.com/testuser.png",
+        },
+    ]
+    mock_get.return_value = mock_response
+
     source_directory = tmp_path / "source"
     source_directory.mkdir()
     source_file = source_directory / "index.rst"
@@ -152,28 +167,25 @@ def test_contributor_directive(tmp_path: Path) -> None:
     conf_py.write_text(conf_py_content)
     source_file_content = dedent(
         """\
+        Test
+        ====
+
         .. contributors:: sphinx-doc/sphinx
         """,
     )
     source_file.write_text(source_file_content)
     destination_directory = tmp_path / "destination"
-    args = [
-        sys.executable,
-        "-m",
-        "sphinx",
-        "-b",
-        "html",
-        "-W",
-        # Directory containing source and configuration files.
-        str(source_directory),
-        # Directory containing build files.
-        str(destination_directory),
-        # Source file to process.
-        str(source_file),
-    ]
-    result = subprocess.run(
-        args=args,
-        check=False,
-        stderr=subprocess.PIPE,
+    doctree_directory = tmp_path / "doctrees"
+
+    app = Sphinx(
+        srcdir=str(source_directory),
+        confdir=str(source_directory),
+        outdir=str(destination_directory),
+        doctreedir=str(doctree_directory),
+        buildername="html",
+        warningiserror=True,
     )
-    assert result.returncode == 0
+    app.build()
+
+    assert app.statuscode == 0
+    mock_get.assert_called_once()
