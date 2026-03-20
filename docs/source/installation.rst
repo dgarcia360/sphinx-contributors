@@ -15,6 +15,17 @@ Installation
 
       extensions = ['sphinx_contributors']
 
+#. Add a ``contributors`` directive to any ``.rst`` file.
+
+   .. code-block:: rst
+
+      .. contributors:: sphinx-doc/sphinx
+         :avatars:
+         :limit: 5
+         :order: ASC
+
+   See :doc:`Examples <examples>` for all available options.
+
 GitHub API rate limits
 ----------------------
 

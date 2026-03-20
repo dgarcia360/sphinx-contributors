@@ -25,9 +25,8 @@ Get started
    :maxdepth: 2
 
    installation
-   usage
-   customization
    examples
+   customization
    who-is-using-it
    reference
    contribute

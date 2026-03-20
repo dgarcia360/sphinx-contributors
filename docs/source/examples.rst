@@ -1,7 +1,7 @@
 Examples
 ========
 
-This page shows the different options available for the ``contributors`` directive.
+The ``contributors`` directive renders the contributors of a given GitHub repository in a Sphinx documentation page. This page shows the different options available.
 
 Basic usage
 -----------
@@ -141,3 +141,5 @@ Merge contributors from multiple repositories into a single list. Contribution c
 .. contributors:: sphinx-doc/sphinx sphinx-doc/sphinx-intl
    :contributions:
    :limit: 5
+
+For more information on how to style the list, see :doc:`Customization <customization>`.
