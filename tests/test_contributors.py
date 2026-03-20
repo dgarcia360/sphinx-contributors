@@ -156,6 +156,93 @@ def test_contributor_repository_build_exclude() -> None:
 
 
 @patch("sphinx_contributors.requests.get")
+def test_multiple_repositories(mock_get) -> None:
+    """
+    Multiple repositories merge contributors and sum contributions.
+    """
+    from sphinx_contributors import ContributorsDirective
+
+    mock_repo1 = MagicMock()
+    mock_repo1.json.return_value = [
+        {
+            "login": "shared",
+            "html_url": "https://github.com/shared",
+            "contributions": 3,
+            "avatar_url": "",
+        },
+        {
+            "login": "only_repo1",
+            "html_url": "https://github.com/only_repo1",
+            "contributions": 1,
+            "avatar_url": "",
+        },
+    ]
+    mock_repo2 = MagicMock()
+    mock_repo2.json.return_value = [
+        {
+            "login": "shared",
+            "html_url": "https://github.com/shared",
+            "contributions": 5,
+            "avatar_url": "",
+        },
+        {
+            "login": "only_repo2",
+            "html_url": "https://github.com/only_repo2",
+            "contributions": 2,
+            "avatar_url": "",
+        },
+    ]
+    mock_get.side_effect = [mock_repo1, mock_repo2]
+
+    directive = ContributorsDirective.__new__(ContributorsDirective)
+    directive.arguments = ["owner/repo1 owner/repo2"]
+    directive.options = {"contributions": None}
+    directive.content = []
+    directive.lineno = 0
+    directive.state = MagicMock()
+    directive.state_machine = MagicMock()
+
+    result = directive.run()
+    text = result[0].astext()
+    assert "shared" in text
+    assert "8 contributions" in text
+    assert "only_repo1" in text
+    assert "only_repo2" in text
+
+
+@patch("sphinx_contributors.requests.get")
+def test_single_repository_unchanged(mock_get) -> None:
+    """
+    A single repository still works as before.
+    """
+    from sphinx_contributors import ContributorsDirective
+
+    mock_response = MagicMock()
+    mock_response.json.return_value = [
+        {
+            "login": "user1",
+            "html_url": "https://github.com/user1",
+            "contributions": 10,
+            "avatar_url": "",
+        },
+    ]
+    mock_get.return_value = mock_response
+
+    directive = ContributorsDirective.__new__(ContributorsDirective)
+    directive.arguments = ["owner/repo"]
+    directive.options = {}
+    directive.content = []
+    directive.lineno = 0
+    directive.state = MagicMock()
+    directive.state_machine = MagicMock()
+
+    result = directive.run()
+    text = result[0].astext()
+    assert "user1" in text
+    mock_get.assert_called_once()
+
+
+@patch("sphinx_contributors.requests.get")
 def test_include_adds_new_contributors(mock_get) -> None:
     """
     The include option adds contributors not already in the list.
