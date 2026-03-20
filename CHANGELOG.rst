@@ -7,6 +7,34 @@ All notable changes to this project will be documented in this file.
 The format is based on `Keep a Changelog <https://keepachangelog.com/en/1.0.0/>`_,
 and this project adheres to `Semantic Versioning <https://semver.org/spec/v2.0.0.html>`_.
 
+[0.2.8] - 20 March 2026
+========================
+
+Added
+-----
+
+- `#36 <https://github.com/dgarcia360/sphinx-contributors/issues/36>`_: New ``:names:`` option to display real names fetched from GitHub user profiles instead of usernames.
+- `#35 <https://github.com/dgarcia360/sphinx-contributors/issues/35>`_: New ``:include:`` option to manually add contributors not detected by the GitHub REST API (e.g., ``Co-authored-by`` contributors).
+- `#6 <https://github.com/dgarcia360/sphinx-contributors/issues/6>`_: Support for multiple repositories in a single directive. Contributors are merged and contribution counts are summed.
+- `#37 <https://github.com/dgarcia360/sphinx-contributors/pull/37>`_: Support for whitespaces in the ``:exclude:`` list.
+- `#34 <https://github.com/dgarcia360/sphinx-contributors/pull/34>`_: Added ``:exclude:`` option to reference docs.
+- Support for ``GITHUB_TOKEN`` environment variable to authenticate API requests and increase the rate limit from 60 to 5,000 requests per hour. The token is only used at build time and is never included in the generated output.
+- New examples page in the documentation showcasing all directive options.
+
+Updated
+-------
+
+- `#40 <https://github.com/dgarcia360/sphinx-contributors/pull/40>`_: Python support updated to 3.10-3.14.
+- Minimum Sphinx version bumped from 5 to 7.
+- `#33 <https://github.com/dgarcia360/sphinx-contributors/pull/33>`_: Bumped ``actions/checkout`` from 3 to 4.
+- CI matrix optimized: older Sphinx versions tested only on Python 3.12.
+- Enabled parallel read/write safe for the extension.
+
+Fixed
+-----
+
+- `#38 <https://github.com/dgarcia360/sphinx-contributors/pull/38>`_: Fixed typo in docs (whithout -> without).
+
 [0.2.7] - 10 January 2023
 =========================
 

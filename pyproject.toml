@@ -10,7 +10,7 @@ home-page = "https://github.com/dgarcia360/sphinx-contributors"
 description-file = "README.rst"
 requires-python = ">=3.10"
 requires = [
-  "sphinx >= 5",
+  "sphinx >= 7",
   "requests",
 ]
 classifiers=[
