@@ -134,11 +134,11 @@ Merge contributors from multiple repositories into a single list. Contribution c
 
 .. code-block:: rst
 
-   .. contributors:: dgarcia360/sphinx-contributors dgarcia360/sphinx-design
+   .. contributors:: dgarcia360/sphinx-contributors dgarcia360/sphinx-collapse
       :contributions:
       :limit: 5
 
-.. contributors:: dgarcia360/sphinx-contributors dgarcia360/sphinx-design
+.. contributors:: dgarcia360/sphinx-contributors dgarcia360/sphinx-collapse
    :contributions:
    :limit: 5
 
