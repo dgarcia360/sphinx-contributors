@@ -13,57 +13,45 @@ Contributors directive
        .. contributors:: dgarcia360/sphinx-contributors dgarcia360/other-repo
           :contributions:
 
-    .. versionchanged:: 0.2.8
-       Multiple repositories can now be specified.
-
     .. rst:directive:option:: limit
       :type: integer
 
-      Number of contributors to list, between 1 and 100. The default value is 10.
-
-      .. versionadded:: 0.2.2
+      Maximum number of contributors to list. If omitted, all contributors are shown.
 
     .. rst:directive:option:: order
       :type: string
 
       Results are sorted by the number of contributions. This parameter controls whether they are sorted by most active users first (``DESC``) or least active users first (``ASC``). Default is ``DESC``.
 
-      .. versionadded:: 0.2.2
-
     .. rst:directive:option:: avatars
       :type: boolean
 
       Whether to include an image with the avatar returned by GitHub. Use CSS to customize the image size, since the returned images might vary.
 
-      .. versionadded:: 0.2.3
+    .. rst:directive:option:: avatars_only
+      :type: boolean
+
+      Show only avatar images with no usernames or contribution counts. Each avatar links to the contributor's GitHub profile, and the username is shown as a tooltip on hover. Implies ``:avatars:``.
 
     .. rst:directive:option:: contributions
       :type: boolean
 
       Whether to show the total number of contributions by each user or not.
 
-      .. versionadded:: 0.2.3
-
     .. rst:directive:option:: names
       :type: boolean
 
       Whether to display real names (fetched from GitHub user profiles) instead of usernames. Falls back to the username if the user has not set a name on their GitHub profile.
-
-      .. versionadded:: 0.2.8
 
     .. rst:directive:option:: include
       :type: string
 
       Comma separated GitHub usernames to add to the list of contributors. This is useful for including people who contributed via ``Co-authored-by`` commit trailers, since the GitHub REST API does not count those as contributors. Already listed contributors are not duplicated. For example: ``dgarcia360,otheruser``.
 
-      .. versionadded:: 0.2.8
-
     .. rst:directive:option:: exclude
       :type: string
 
-      Comma seperated usernames to exlude from the list of contributors, for example: ``dependabot[bot],pre-commit-ci[bot]``.
-
-      .. versionadded:: 0.2.0
+      Comma separated usernames to exclude from the list of contributors, for example: ``dependabot[bot],pre-commit-ci[bot]``.
 
     .. note::
 

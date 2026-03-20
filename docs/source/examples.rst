@@ -27,6 +27,19 @@ Display contributor avatars:
 .. contributors:: dgarcia360/sphinx-contributors
    :avatars:
 
+Avatars only
+------------
+
+Show only clickable avatars with no text. Hover over an avatar to see the username:
+
+.. code-block:: rst
+
+   .. contributors:: dgarcia360/sphinx-contributors
+      :avatars_only:
+
+.. contributors:: dgarcia360/sphinx-contributors
+   :avatars_only:
+
 With contribution counts
 ------------------------
 
@@ -120,13 +133,11 @@ Avatars, real names, and contribution counts together:
 
    .. contributors:: dgarcia360/sphinx-contributors
       :avatars:
-      :contributions:
       :names:
       :exclude: dependabot[bot]
 
 .. contributors:: dgarcia360/sphinx-contributors
    :avatars:
-   :contributions:
    :names:
    :exclude: dependabot[bot]
 

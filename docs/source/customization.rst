@@ -21,3 +21,17 @@ For example, the following CSS snippet makes the images round:
     :exclude: dgarcia360,sphinx
     :limit: 5
     :order: DESC
+
+You can also adjust the spacing between avatars by overriding the ``gap`` property. Increase it for more spacing, or decrease it for a tighter layout:
+
+.. code-block:: css
+
+  /* More spacing */
+  .sphinx-contributors--avatars .sphinx-contributors_list {
+      gap: 40px;
+  }
+
+  /* Tighter layout */
+  .sphinx-contributors--avatars .sphinx-contributors_list {
+      gap: 10px;
+  }

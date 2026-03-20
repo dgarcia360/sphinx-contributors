@@ -4,7 +4,7 @@ Contributors extension for Sphinx.
 # This code is licensed under MIT license (see LICENSE.md for details)
 """
 
-__version__ = "0.2.8"
+__version__ = "0.3.0"
 
 import os
 from pathlib import Path
@@ -24,6 +24,16 @@ def _github_headers():
     return {}
 
 
+def _github_get_paginated(url):
+    results = []
+    headers = _github_headers()
+    while url:
+        r = requests.get(url, headers=headers)
+        results.extend(r.json())
+        url = r.links.get("next", {}).get("url")
+    return results
+
+
 class Contributor:
     def __init__(self, login, url, contributions=0, avatar_url="", name=""):
         self.contributions = contributions
@@ -36,7 +46,7 @@ class Contributor:
     def display_name(self):
         return self.name or self.login
 
-    def build(self, class_name):
+    def build(self, class_name, avatars_only=False):
         container_class = class_name + "_contributor"
         image_class = container_class + "__image"
         username_class = container_class + "__username"
@@ -45,7 +55,17 @@ class Contributor:
         node_container = nodes.container(classes=[container_class])
 
         if self.avatar_url:
-            node_container += nodes.image(uri=self.avatar_url, classes=[image_class])
+            node_image = nodes.image(
+                uri=self.avatar_url,
+                alt=self.display_name,
+                classes=[image_class],
+            )
+            node_image_link = nodes.reference("", refuri=self.url)
+            node_image_link += node_image
+            node_container += node_image_link
+
+        if avatars_only:
+            return node_container
 
         node_username = nodes.paragraph(classes=[username_class])
         node_username += nodes.reference(text=self.display_name, refuri=self.url)
@@ -62,26 +82,38 @@ class Contributor:
 
 
 class ContributorsRepository:
-    def __init__(self, contributors, reverse=True, limit=10, exclude=[], avatars=False):
-        self.contributors = sorted(
+    def __init__(
+        self,
+        contributors,
+        reverse=True,
+        limit=None,
+        exclude=[],
+        avatars=False,
+        avatars_only=False,
+    ):
+        sorted_contributors = sorted(
             [c for c in contributors if c.login not in exclude],
             key=lambda c: c.contributions,
             reverse=reverse,
-        )[:limit]
+        )
+        self.contributors = (
+            sorted_contributors[:limit] if limit else sorted_contributors
+        )
         self.avatars = avatars
+        self.avatars_only = avatars_only
 
     def build(self, class_name):
         list_class = class_name + "_list"
         item_class = list_class + "__item"
 
         node_container = nodes.container(classes=[class_name])
-        if self.avatars:
+        if self.avatars or self.avatars_only:
             node_container["classes"].append(class_name + "--avatars")
         node_list = nodes.bullet_list(classes=[list_class])
 
         for contributor in self.contributors:
             node_item = nodes.list_item(classes=[item_class])
-            node_item += contributor.build(class_name)
+            node_item += contributor.build(class_name, avatars_only=self.avatars_only)
             node_list += node_item
         node_container += node_list
         return node_container
@@ -94,6 +126,7 @@ class ContributorsDirective(Directive):
     final_argument_whitespace = True
     option_spec = {
         "avatars": directives.flag,
+        "avatars_only": directives.flag,
         "class_name": directives.unchanged,
         "contributions": directives.flag,
         "exclude": directives.unchanged,
@@ -104,7 +137,8 @@ class ContributorsDirective(Directive):
     }
 
     def run(self):
-        use_avatars = "avatars" in self.options
+        avatars_only = "avatars_only" in self.options
+        use_avatars = "avatars" in self.options or avatars_only
         class_name = self.options.get("class_name", "sphinx-contributors")
         show_contributions = "contributions" in self.options
         show_names = "names" in self.options
@@ -116,20 +150,19 @@ class ContributorsDirective(Directive):
             for _include in self.options.get("include", "").split(",")
             if _include.strip()
         ]
-        limit = self.options.get("limit", 10)
+        limit = self.options.get("limit", None)
         order = self.options.get("order", "DESC") == "DESC"
 
         repositories = self.arguments[0].split()
         contributors_by_login = {}
         for repo_name in repositories:
             try:
-                r = requests.get(
+                results = _github_get_paginated(
                     "https://api.github.com/repos/"
                     + repo_name
-                    + "/contributors?per_page=100",
-                    headers=_github_headers(),
+                    + "/contributors?per_page=100"
                 )
-                for c in r.json():
+                for c in results:
                     login = c.get("login")
                     if login in contributors_by_login:
                         if show_contributions:
@@ -173,6 +206,7 @@ class ContributorsDirective(Directive):
             limit=limit,
             exclude=exclude,
             avatars=use_avatars,
+            avatars_only=avatars_only,
         )
 
         if show_names:

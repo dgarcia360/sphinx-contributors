@@ -10,7 +10,9 @@
 .sphinx-contributors--avatars .sphinx-contributors_list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: flex-start;
+    gap: 20px;
+    padding: 0;
 }
 
 .sphinx-contributors--avatars .sphinx-contributors_list__item {

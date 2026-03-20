@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file.
 The format is based on `Keep a Changelog <https://keepachangelog.com/en/1.0.0/>`_,
 and this project adheres to `Semantic Versioning <https://semver.org/spec/v2.0.0.html>`_.
 
-[0.2.8] - 20 March 2026
+[0.3.0] - 20 March 2026
 ========================
 
 Added
@@ -19,7 +19,14 @@ Added
 - `#37 <https://github.com/dgarcia360/sphinx-contributors/pull/37>`_: Support for whitespaces in the ``:exclude:`` list.
 - `#34 <https://github.com/dgarcia360/sphinx-contributors/pull/34>`_: Added ``:exclude:`` option to reference docs.
 - Support for ``GITHUB_TOKEN`` environment variable to authenticate API requests and increase the rate limit from 60 to 5,000 requests per hour. The token is only used at build time and is never included in the generated output.
+- New ``:avatars_only:`` option to show only clickable avatar images with no text. Useful for compact contributor grids.
+- GitHub API pagination: repositories with more than 100 contributors are now fully supported.
 - New examples page in the documentation showcasing all directive options.
+
+Changed
+-------
+
+- **Breaking**: The ``:limit:`` option no longer defaults to 10. If omitted, all contributors are shown. Set ``:limit: 10`` explicitly to restore the previous behavior.
 
 Updated
 -------
@@ -29,11 +36,13 @@ Updated
 - `#33 <https://github.com/dgarcia360/sphinx-contributors/pull/33>`_: Bumped ``actions/checkout`` from 3 to 4.
 - CI matrix optimized: older Sphinx versions tested only on Python 3.12.
 - Enabled parallel read/write safe for the extension.
+- Avatar layout now aligns left-to-right instead of being distributed evenly.
 
 Fixed
 -----
 
 - `#38 <https://github.com/dgarcia360/sphinx-contributors/pull/38>`_: Fixed typo in docs (whithout -> without).
+- Avatar images now render at a consistent square size.
 
 [0.2.7] - 10 January 2023
 =========================

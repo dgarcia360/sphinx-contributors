@@ -24,10 +24,13 @@ Follow these steps to add sphinx-contributors to your Sphinx project:
 
    .. code-block:: rst
 
-      .. contributors:: sphinx-doc/sphinx
+      .. contributors:: dgarcia360/sphinx-contributors
          :avatars:
-         :limit: 5
-         :order: ASC
+
+   This renders all contributors with their avatars (use ``:limit:`` to show fewer):
+
+   .. contributors:: dgarcia360/sphinx-contributors
+      :avatars:
 
    See :doc:`Examples <examples>` for all available options.
 
