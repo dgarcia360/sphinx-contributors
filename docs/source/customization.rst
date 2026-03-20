@@ -16,7 +16,7 @@ For example, the following CSS snippet makes the images round:
 
 .. rst-class:: custom-contributors
 
-.. contributors:: sphinx-doc/sphinx
+.. contributors:: dgarcia360/sphinx-contributors
     :avatars:
     :exclude: dgarcia360,sphinx
     :limit: 5

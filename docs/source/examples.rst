@@ -10,9 +10,9 @@ List the top 10 contributors from a repository:
 
 .. code-block:: rst
 
-   .. contributors:: sphinx-doc/sphinx
+   .. contributors:: dgarcia360/sphinx-contributors
 
-.. contributors:: sphinx-doc/sphinx
+.. contributors:: dgarcia360/sphinx-contributors
 
 With contribution counts
 ------------------------
@@ -21,11 +21,11 @@ Show how many contributions each user has made:
 
 .. code-block:: rst
 
-   .. contributors:: sphinx-doc/sphinx
+   .. contributors:: dgarcia360/sphinx-contributors
       :contributions:
       :limit: 5
 
-.. contributors:: sphinx-doc/sphinx
+.. contributors:: dgarcia360/sphinx-contributors
    :contributions:
    :limit: 5
 
@@ -36,11 +36,11 @@ Display contributor avatars:
 
 .. code-block:: rst
 
-   .. contributors:: sphinx-doc/sphinx
+   .. contributors:: dgarcia360/sphinx-contributors
       :avatars:
       :limit: 5
 
-.. contributors:: sphinx-doc/sphinx
+.. contributors:: dgarcia360/sphinx-contributors
    :avatars:
    :limit: 5
 
@@ -51,11 +51,11 @@ Show real names instead of usernames (fetched from GitHub profiles):
 
 .. code-block:: rst
 
-   .. contributors:: sphinx-doc/sphinx
+   .. contributors:: dgarcia360/sphinx-contributors
       :names:
       :limit: 5
 
-.. contributors:: sphinx-doc/sphinx
+.. contributors:: dgarcia360/sphinx-contributors
    :names:
    :limit: 5
 
@@ -66,13 +66,13 @@ Avatars, real names, and contribution counts together:
 
 .. code-block:: rst
 
-   .. contributors:: sphinx-doc/sphinx
+   .. contributors:: dgarcia360/sphinx-contributors
       :avatars:
       :contributions:
       :names:
       :limit: 5
 
-.. contributors:: sphinx-doc/sphinx
+.. contributors:: dgarcia360/sphinx-contributors
    :avatars:
    :contributions:
    :names:
@@ -85,12 +85,12 @@ Sort by least active contributors first:
 
 .. code-block:: rst
 
-   .. contributors:: sphinx-doc/sphinx
+   .. contributors:: dgarcia360/sphinx-contributors
       :contributions:
       :limit: 5
       :order: ASC
 
-.. contributors:: sphinx-doc/sphinx
+.. contributors:: dgarcia360/sphinx-contributors
    :contributions:
    :limit: 5
    :order: ASC
@@ -102,12 +102,12 @@ Exclude bots or specific users:
 
 .. code-block:: rst
 
-   .. contributors:: sphinx-doc/sphinx
+   .. contributors:: dgarcia360/sphinx-contributors
       :contributions:
       :exclude: dependabot[bot], pre-commit-ci[bot]
       :limit: 5
 
-.. contributors:: sphinx-doc/sphinx
+.. contributors:: dgarcia360/sphinx-contributors
    :contributions:
    :exclude: dependabot[bot], pre-commit-ci[bot]
    :limit: 5
@@ -119,12 +119,12 @@ Manually add contributors not detected by the API (e.g., ``Co-authored-by`` cont
 
 .. code-block:: rst
 
-   .. contributors:: sphinx-doc/sphinx
-      :include: dgarcia360
+   .. contributors:: dgarcia360/sphinx-contributors
+      :include: Peque
       :limit: 5
 
-.. contributors:: sphinx-doc/sphinx
-   :include: dgarcia360
+.. contributors:: dgarcia360/sphinx-contributors
+   :include: Peque
    :limit: 5
 
 Multiple repositories
@@ -134,11 +134,11 @@ Merge contributors from multiple repositories into a single list. Contribution c
 
 .. code-block:: rst
 
-   .. contributors:: sphinx-doc/sphinx sphinx-doc/sphinx-intl
+   .. contributors:: dgarcia360/sphinx-contributors dgarcia360/sphinx-design
       :contributions:
       :limit: 5
 
-.. contributors:: sphinx-doc/sphinx sphinx-doc/sphinx-intl
+.. contributors:: dgarcia360/sphinx-contributors dgarcia360/sphinx-design
    :contributions:
    :limit: 5
 
