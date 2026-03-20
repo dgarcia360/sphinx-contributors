@@ -3,6 +3,11 @@ Installation
 
 .. important:: sphinx-contributors is compatible with Sphinx 7.0+ using Python 3.10+.
 
+Getting started
+---------------
+
+Follow these steps to add sphinx-contributors to your Sphinx project:
+
 #. Install ``sphinx-contributors`` using PIP.
 
    .. code-block:: bash
