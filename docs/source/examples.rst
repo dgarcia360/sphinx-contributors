@@ -6,28 +6,13 @@ The ``contributors`` directive renders the contributors of a given GitHub reposi
 Basic usage
 -----------
 
-List the top 10 contributors from a repository:
+List the contributors from a repository:
 
 .. code-block:: rst
 
    .. contributors:: dgarcia360/sphinx-contributors
 
 .. contributors:: dgarcia360/sphinx-contributors
-
-With contribution counts
-------------------------
-
-Show how many contributions each user has made:
-
-.. code-block:: rst
-
-   .. contributors:: dgarcia360/sphinx-contributors
-      :contributions:
-      :limit: 5
-
-.. contributors:: dgarcia360/sphinx-contributors
-   :contributions:
-   :limit: 5
 
 With avatars
 ------------
@@ -38,11 +23,22 @@ Display contributor avatars:
 
    .. contributors:: dgarcia360/sphinx-contributors
       :avatars:
-      :limit: 5
 
 .. contributors:: dgarcia360/sphinx-contributors
    :avatars:
-   :limit: 5
+
+With contribution counts
+------------------------
+
+Show how many contributions each user has made:
+
+.. code-block:: rst
+
+   .. contributors:: dgarcia360/sphinx-contributors
+      :contributions:
+
+.. contributors:: dgarcia360/sphinx-contributors
+   :contributions:
 
 With real names
 ---------------
@@ -53,11 +49,67 @@ Show real names instead of usernames (fetched from GitHub profiles):
 
    .. contributors:: dgarcia360/sphinx-contributors
       :names:
-      :limit: 5
 
 .. contributors:: dgarcia360/sphinx-contributors
    :names:
-   :limit: 5
+
+Excluding users
+---------------
+
+Exclude bots or specific users:
+
+.. code-block:: rst
+
+   .. contributors:: dgarcia360/sphinx-contributors
+      :exclude: dependabot[bot], pre-commit-ci[bot]
+
+.. contributors:: dgarcia360/sphinx-contributors
+   :exclude: dependabot[bot], pre-commit-ci[bot]
+
+Including additional contributors
+---------------------------------
+
+Manually add contributors not detected by the API (e.g., ``Co-authored-by`` contributors):
+
+.. code-block:: rst
+
+   .. contributors:: dgarcia360/sphinx-contributors
+      :include: Peque
+
+.. contributors:: dgarcia360/sphinx-contributors
+   :include: Peque
+
+Multiple repositories
+---------------------
+
+Merge contributors from multiple repositories into a single list. Contribution counts are summed for users who appear in more than one repository:
+
+.. code-block:: rst
+
+   .. contributors:: dgarcia360/sphinx-contributors sphinx-doc/sphinx
+      :contributions:
+      :limit: 10
+
+.. contributors:: dgarcia360/sphinx-contributors sphinx-doc/sphinx
+   :contributions:
+   :limit: 10
+
+Limiting and sorting
+--------------------
+
+Control how many contributors are shown and in what order:
+
+.. code-block:: rst
+
+   .. contributors:: dgarcia360/sphinx-contributors
+      :contributions:
+      :limit: 3
+      :order: ASC
+
+.. contributors:: dgarcia360/sphinx-contributors
+   :contributions:
+   :limit: 3
+   :order: ASC
 
 Combining options
 -----------------
@@ -70,76 +122,12 @@ Avatars, real names, and contribution counts together:
       :avatars:
       :contributions:
       :names:
-      :limit: 5
+      :exclude: dependabot[bot]
 
 .. contributors:: dgarcia360/sphinx-contributors
    :avatars:
    :contributions:
    :names:
-   :limit: 5
-
-Sorting order
--------------
-
-Sort by least active contributors first:
-
-.. code-block:: rst
-
-   .. contributors:: dgarcia360/sphinx-contributors
-      :contributions:
-      :limit: 5
-      :order: ASC
-
-.. contributors:: dgarcia360/sphinx-contributors
-   :contributions:
-   :limit: 5
-   :order: ASC
-
-Excluding users
----------------
-
-Exclude bots or specific users:
-
-.. code-block:: rst
-
-   .. contributors:: dgarcia360/sphinx-contributors
-      :contributions:
-      :exclude: dependabot[bot], pre-commit-ci[bot]
-      :limit: 5
-
-.. contributors:: dgarcia360/sphinx-contributors
-   :contributions:
-   :exclude: dependabot[bot], pre-commit-ci[bot]
-   :limit: 5
-
-Including additional contributors
----------------------------------
-
-Manually add contributors not detected by the API (e.g., ``Co-authored-by`` contributors):
-
-.. code-block:: rst
-
-   .. contributors:: dgarcia360/sphinx-contributors
-      :include: Peque
-      :limit: 5
-
-.. contributors:: dgarcia360/sphinx-contributors
-   :include: Peque
-   :limit: 5
-
-Multiple repositories
----------------------
-
-Merge contributors from multiple repositories into a single list. Contribution counts are summed for users who appear in more than one repository:
-
-.. code-block:: rst
-
-   .. contributors:: dgarcia360/sphinx-contributors dgarcia360/sphinx-collapse
-      :contributions:
-      :limit: 5
-
-.. contributors:: dgarcia360/sphinx-contributors dgarcia360/sphinx-collapse
-   :contributions:
-   :limit: 5
+   :exclude: dependabot[bot]
 
 For more information on how to style the list, see :doc:`Customization <customization>`.
