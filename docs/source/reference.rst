@@ -6,12 +6,27 @@ Contributors directive
 
 .. rst:directive:: .. contributors:: username/repository [username/repository ...]
 
-    One or more GitHub repositories, separated by spaces. When multiple repositories are specified, contributors are merged into a single list and contribution counts are summed for users who appear in more than one repository.
+    One or more GitHub or local repositories, separated by spaces. When multiple repositories are specified, contributors are merged into a single list and contribution counts are summed for users who appear in more than one repository.
 
     .. code-block:: rst
 
        .. contributors:: dgarcia360/sphinx-contributors dgarcia360/other-repo
           :contributions:
+
+    or
+
+    .. code-block:: rst
+
+       .. contributors:: ../../
+          :provider: local
+          :contributions:
+
+    The latter assumes that your local git repository root resides two levels up from the document this directive has been placed.
+
+    .. rst:directive:option:: provider
+      :type: string
+
+      By default, repositories specified as first argument of the directive are considered public github repositories. Set this option to ``local`` if they point to a local git repository instead. Defaults to ``github`` if not provided.
 
     .. rst:directive:option:: limit
       :type: integer
@@ -52,6 +67,11 @@ Contributors directive
       :type: string
 
       Comma separated usernames to exclude from the list of contributors, for example: ``dependabot[bot],pre-commit-ci[bot]``.
+
+    .. rst:directive:option:: anonymous
+      :type: boolean
+
+      Also show ``anonymous`` contributors, i.e. those that appear in the git commit history but are not registered with github
 
     .. note::
 
