@@ -1,24 +1,27 @@
 sphinx-contributors
 ===================
 
-``sphinx-contributors`` is a Sphinx extension that automatically lists the people who have contributed to your GitHub repositories, right inside your documentation.
+``sphinx-contributors`` is a Sphinx extension that automatically lists the people who have contributed to your project or Git repositories, right inside your documentation.
 
 .. image:: https://raw.githubusercontent.com/dgarcia360/sphinx-contributors/master/docs/source/_static/example_avatars.png
 
 Features
 ---------
 
-- List contributors from one or multiple GitHub repositories in a single directive.
-- Display real names, avatars, and contribution counts.
+- List contributors from one or multiple **GitHub** or **local** ``git`` repositories in a single directive.
+- Include additional contributors from an `All Contributors <https://allcontributors.org>`_-style JSON file
 - Manually include contributors not detected by the API (e.g., ``Co-authored-by`` contributors).
+- Display real names, avatars, and contribution types, commit counts, etc. if such data is available.
 - Exclude bots and specific users.
-- Sort by most or least active, and limit the number shown.
+- Merge contributors based on login or email aliases
+- Sort by name, login, email address, contributions or commits and limit the number shown.
 
 Requirements
 ---------------------
 
-- GitHub public repositories.
+- GitHub public or local git repositories or local ``.all-contributorsrc`` JSON file.
 - Python 3.10+ and Sphinx 7.0+.
+
 
 Installation
 ------------

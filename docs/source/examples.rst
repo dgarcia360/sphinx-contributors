@@ -1,7 +1,7 @@
 Examples
 ========
 
-The ``contributors`` directive renders the contributors of a given GitHub repository in a Sphinx documentation page. This page shows the different options available.
+The ``contributors`` directive renders the contributors of a given GitHub or local git repository in a Sphinx documentation page. This page shows the different options available.
 
 Basic usage
 -----------
@@ -13,6 +13,19 @@ List the contributors from a repository:
    .. contributors:: dgarcia360/sphinx-contributors
 
 .. contributors:: dgarcia360/sphinx-contributors
+
+Local repository
+----------------
+
+List the contributors from a local repository:
+
+.. code-block:: rst
+
+   .. contributors:: ../../
+      :provider: local
+
+.. contributors:: ../../
+    :provider: local
 
 With avatars
 ------------
@@ -92,6 +105,19 @@ Manually add contributors not detected by the API (e.g., ``Co-authored-by`` cont
 .. contributors:: dgarcia360/sphinx-contributors
    :include: Peque
 
+Including anonymous contributors
+--------------------------------
+
+Also add contributors that are not linked to a github account:
+
+.. code-block:: rst
+
+   .. contributors:: dgarcia360/sphinx-contributors
+      :anonymous:
+
+.. contributors:: dgarcia360/sphinx-contributors
+   :anonymous:
+
 Multiple repositories
 ---------------------
 
@@ -127,7 +153,7 @@ Control how many contributors are shown and in what order:
 Combining options
 -----------------
 
-Avatars, real names, and contribution counts together:
+Avatars, real names, and exclude list together:
 
 .. code-block:: rst
 
@@ -137,6 +163,27 @@ Avatars, real names, and contribution counts together:
       :exclude: dependabot[bot]
 
 .. contributors:: dgarcia360/sphinx-contributors
+   :avatars:
+   :names:
+   :exclude: dependabot[bot]
+
+Local Repo with default avatars
+-------------------------------
+
+Local repository with default avatars, real names, and contribution counts together:
+
+.. code-block:: rst
+
+   .. contributors:: ../../
+      :provider: local
+      :contributions:
+      :avatars:
+      :names:
+      :exclude: dependabot[bot]
+
+.. contributors:: ../../
+   :provider: local
+   :contributions:
    :avatars:
    :names:
    :exclude: dependabot[bot]

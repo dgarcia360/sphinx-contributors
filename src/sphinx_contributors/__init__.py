@@ -6,118 +6,66 @@ Contributors extension for Sphinx.
 
 __version__ = "0.3.0"
 
+import copy
 import os
+from os import path
 from pathlib import Path
-
-import requests
-from docutils import nodes
 from docutils.parsers.rst import Directive, directives
-from sphinx.util import logging
+from sphinx.util import logging, osutil
+
+from .contributors import Contributor, ContributorsRepository
+from .repository import Repository
+from .all_contributors import AllContributors
 
 logger = logging.getLogger(__name__)
 
-
-def _github_headers():
-    token = os.environ.get("GITHUB_TOKEN")
-    if token:
-        return {"Authorization": "token " + token}
-    return {}
-
-
-def _github_get_paginated(url):
-    results = []
-    headers = _github_headers()
-    while url:
-        r = requests.get(url, headers=headers)
-        results.extend(r.json())
-        url = r.links.get("next", {}).get("url")
-    return results
+DEFAULT_CONTRIBUTORS_CONF = {
+    "avatar_image_default" : "sc_user_avartar_default.svg",
+    "avatar_size_default" : 150,
+    "all_contributors" : False,
+    "all_contributors_file" : ".all-contributorsrc",
+    "all_contributors_imageSize_ignore" : False,
+    "all_contributors_precedence" : [ "name", "avatar_url", "email", "profile" ],
+}
 
 
-class Contributor:
-    def __init__(self, login, url, contributions=0, avatar_url="", name=""):
-        self.contributions = contributions
-        self.login = login
-        self.url = url
-        self.avatar_url = avatar_url
-        self.name = name
-
-    @property
-    def display_name(self):
-        return self.name or self.login
-
-    def build(self, class_name, avatars_only=False):
-        container_class = class_name + "_contributor"
-        image_class = container_class + "__image"
-        username_class = container_class + "__username"
-        contributions_class = container_class + "__contributions"
-
-        node_container = nodes.container(classes=[container_class])
-
-        if self.avatar_url:
-            node_image = nodes.image(
-                uri=self.avatar_url,
-                alt=self.display_name,
-                classes=[image_class],
-            )
-            node_image_link = nodes.reference("", refuri=self.url)
-            node_image_link += node_image
-            node_container += node_image_link
-
-        if avatars_only:
-            return node_container
-
-        node_username = nodes.paragraph(classes=[username_class])
-        node_username += nodes.reference(text=self.display_name, refuri=self.url)
-        node_container += node_username
-
-        if self.contributions:
-            node_contributions = nodes.paragraph(classes=[contributions_class])
-            node_contributions += nodes.Text(
-                str(self.contributions)
-                + (" contributions" if self.contributions != 1 else " contribution"),
-            )
-            node_container += node_contributions
-        return node_container
+def sc_path_static():
+    """Returns path to packaged static files"""
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), "_static"))
 
 
-class ContributorsRepository:
-    def __init__(
-        self,
-        contributors,
-        reverse=True,
-        limit=None,
-        exclude=[],
-        avatars=False,
-        avatars_only=False,
-    ):
-        sorted_contributors = sorted(
-            [c for c in contributors if c.login not in exclude],
-            key=lambda c: c.contributions,
-            reverse=reverse,
-        )
-        self.contributors = (
-            sorted_contributors[:limit] if limit else sorted_contributors
-        )
-        self.avatars = avatars
-        self.avatars_only = avatars_only
+def sc_path_static_append(app) :
+    contributors_config = app.config.sphinx_contributors_conf
 
-    def build(self, class_name):
-        list_class = class_name + "_list"
-        item_class = list_class + "__item"
+    if contributors_config['avatar_image_default'] == DEFAULT_CONTRIBUTORS_CONF['avatar_image_default']:
+        contributors_config['avatar_image_default'] = Path(
+                                                os.path.relpath(
+                                                  os.path.join(sc_path_static(), contributors_config['avatar_image_default']),
+                                                  app.builder.srcdir
+                                                )
+                                             ).as_posix()
 
-        node_container = nodes.container(classes=[class_name])
-        if self.avatars or self.avatars_only:
-            node_container["classes"].append(class_name + "--avatars")
-        node_list = nodes.bullet_list(classes=[list_class])
+    # manually register the default image so that it works with latex builder
+    app.env.images.add_file('', contributors_config['avatar_image_default'])
 
-        for contributor in self.contributors:
-            node_item = nodes.list_item(classes=[item_class])
-            node_item += contributor.build(class_name, avatars_only=self.avatars_only)
-            node_list += node_item
-        node_container += node_list
-        return node_container
 
+def fill_contributors_conf_defaults(app, config, check_keys = True):
+    """Handle user config"""
+    contributors_conf = copy.deepcopy(DEFAULT_CONTRIBUTORS_CONF)
+    contributors_conf.update(config.sphinx_contributors_conf)
+
+    config.sphinx_contributors_conf = contributors_conf
+
+    config.html_static_path.append(sc_path_static())
+
+
+def parse_all_contributors(app, docname, source):
+    contributors_config = app.config.sphinx_contributors_conf
+
+    if contributors_config.get("all_contributors", False) and \
+        "all_contributors_file" in contributors_config:
+        ac = AllContributors(os.path.join(app.confdir, contributors_config["all_contributors_file"]))
+        contributors_config['all_contributors_data'] = ac
 
 class ContributorsDirective(Directive):
     has_content = True
@@ -128,109 +76,155 @@ class ContributorsDirective(Directive):
         "avatars": directives.flag,
         "avatars_only": directives.flag,
         "class_name": directives.unchanged,
-        "contributions": directives.flag,
+        "contributions": directives.unchanged,
         "exclude": directives.unchanged,
         "include": directives.unchanged,
         "limit": directives.positive_int,
         "names": directives.flag,
+        "anonymous": directives.flag,
         "order": directives.unchanged,
+        "provider": directives.unchanged,
+        "avatar_size" : directives.positive_int,
     }
 
     def run(self):
-        avatars_only = "avatars_only" in self.options
-        use_avatars = "avatars" in self.options or avatars_only
-        class_name = self.options.get("class_name", "sphinx-contributors")
-        show_contributions = "contributions" in self.options
-        show_names = "names" in self.options
-        exclude = [
-            _exclude.strip() for _exclude in self.options.get("exclude", "").split(",")
-        ]
-        include = [
-            _include.strip()
-            for _include in self.options.get("include", "").split(",")
-            if _include.strip()
-        ]
-        limit = self.options.get("limit", None)
-        order = self.options.get("order", "DESC") == "DESC"
+        config = self.state.document.settings.env.config.sphinx_contributors_conf
 
-        repositories = self.arguments[0].split()
-        contributors_by_login = {}
-        for repo_name in repositories:
-            try:
-                results = _github_get_paginated(
-                    "https://api.github.com/repos/"
-                    + repo_name
-                    + "/contributors?per_page=100"
-                )
-                for c in results:
-                    login = c.get("login")
-                    if login in contributors_by_login:
-                        if show_contributions:
-                            contributors_by_login[login].contributions += c.get(
-                                "contributions", 0
-                            )
+        order = self.options.get("order", "DESC").split()
+        reverse = False if "ASC" in order or 'asc' in order else True
+        order = [ o for o in order if o not in ('ASC', 'DESC', 'asc', 'desc') ]
+
+        if "byContribution" in order:
+            sort_by = 'contribution'
+        elif "byCommit" in order:
+            sort_by = 'commit'
+        elif "byName" in order:
+            sort_by = 'name'
+        elif "byLogin" in order:
+            sort_by = 'login'
+        elif "byEmail" in order:
+            sort_by = 'email'
+        else:
+            sort_by = None
+
+        contributors_options = {
+            # pass over and pre-process options taken from the directive call
+            'provider' : self.options.get("provider", "github"),
+            # compile list of additional users to exclude/exclude
+            'exclude' : [
+                _exclude.strip() for _exclude in self.options.get("exclude", "").split(",")
+            ],
+            'include' : [
+                _include.strip()
+                for _include in self.options.get("include", "").split(",")
+                if _include.strip()
+            ],
+            'sort_by' : sort_by,
+            'reverse' : reverse,
+            'rst_dir' : os.path.dirname(self.state_machine.document.attributes['source'])
+                        if self.state_machine.document.attributes['source'] else ".",
+            'anonymous' :  "anonymous" in self.options,
+            'show_names' : "names" in self.options,
+            'show_contributions' : self.options.get('contributions', False),
+            'avatars_only' : "avatars_only" in self.options,
+            'show_avatars' : "avatars" in self.options or "avatars_only" in self.options,
+            'default_avatar' : config.get('avatar_image_default', ""),
+            # store path to invoking rst source file in addition
+            # to the other options set by this call of the contributors
+            # directive
+            'rst_source' : self.state_machine.document.attributes['source'],
+            'limit': self.options.get('limit', None),
+            'avatar_size': self.options.get('avatar_size', 0)
+        }
+
+        contributors_by = {}
+
+        if  config.get('all_contributors', False) and \
+            'all_contributors_data' in config:
+
+            if not config.get('all_contributors_imageSize_ignore', False) and \
+               contributors_options['avatar_size'] == 0:
+                contributors_options['avatar_size'] = config['all_contributors_data'].imageSize
+
+            if False:
+                key = 'email' if contributors_options['provider'] == 'local' else 'login'
+            else:
+                # always use login from all_contributors as key
+                key = 'login'
+
+            contributors_by = { c.get(key, f"__acid_{i}") : Contributor(
+                                   login = c.get('login', ""),
+                                   url = c.get('profile', ""),
+                                   avatar_url = c.get('avatar_url',""),
+                                   email = c.get('email',""),
+                                   name = c.get('name',""),
+                                   aliases = c.get('aliases', []),
+                                   contributions = c.get('contributions', []),
+                                   source = '.all-contributorsrc'
+                                 ) for i, c in enumerate(config['all_contributors_data'].contributors)
+                               }
+
+            if config['all_contributors_data'].contributorsSortAlphabetically:
+                contributors_options['sort_by'] = 'login'
+
+        if contributors_options['avatar_size'] == 0:
+            contributors_options['avatar_size'] = config['avatar_size_default']
+
+        for r in self.arguments[0].split():
+            repo = Repository(r, options = contributors_options)
+
+            for k, v in repo.get_contributors().items():
+                if k not in contributors_by:
+                    contributors_by[k] = v
+                else:
+                    if '.all-contributorsrc' in contributors_by[k].source:
+                        contributors_by[k].update(v, keep = config['all_contributors_precedence'])
                     else:
-                        contributors_by_login[login] = Contributor(
-                            login,
-                            c.get("html_url"),
-                            c.get("contributions") if show_contributions else 0,
-                            c.get("avatar_url") if use_avatars else "",
-                        )
-            except Exception:
-                logger.warning("The repository " + repo_name + " does not exist.")
-        contributors = list(contributors_by_login.values())
+                        contributors_by[k].update(v)
 
-        existing_logins = {c.login for c in contributors}
-        for login in include:
-            if login in existing_logins:
-                continue
-            try:
-                user = requests.get(
-                    "https://api.github.com/users/" + login,
-                    headers=_github_headers(),
-                ).json()
-                contributors.append(
-                    Contributor(
-                        login,
-                        user.get("html_url", "https://github.com/" + login),
-                        0,
-                        user.get("avatar_url", "") if use_avatars else "",
-                    )
-                )
-            except Exception:
-                logger.warning("Could not fetch user: " + login)
+        # attempt to merge entries
+        merged = []
+        for k, v in contributors_by.items():
+            if k not in merged:
+                aliases = v.aliases
+                if v.email != "":
+                    aliases += [ v.email ]
+                for alias in aliases:
+                    if alias in [ c for c in contributors_by.keys() if c != k ]:
+                        if '.all-contributorsrc' in v.source:
+                            v.update(contributors_by[alias], keep = config['all_contributors_precedence'])
+                        else:
+                            v.update(contributors_by[alias])
+
+                        merged.append(alias)
+
+        for m in merged:
+            del contributors_by[m]
+
+        contributors = list(contributors_by.values())
 
         repo = ContributorsRepository(
             contributors,
-            reverse=order,
-            limit=limit,
-            exclude=exclude,
-            avatars=use_avatars,
-            avatars_only=avatars_only,
+            options = contributors_options
         )
 
-        if show_names:
-            for contributor in repo.contributors:
-                try:
-                    user = requests.get(
-                        "https://api.github.com/users/" + contributor.login,
-                        headers=_github_headers(),
-                    ).json()
-                    contributor.name = user.get("name") or ""
-                except Exception:
-                    pass
+        class_name = self.options.get("class_name", "sphinx-contributors")
 
         return [repo.build(class_name)]
 
 
 def setup(app):
+    app.add_config_value('sphinx_contributors_conf', DEFAULT_CONTRIBUTORS_CONF, 'html')
+
+    # Early filling of sphinx_contributors_conf defaults at config-inited
+    app.connect("config-inited", fill_contributors_conf_defaults, priority=10)
+    app.connect("builder-inited", sc_path_static_append)
+    app.connect('env-before-read-docs', parse_all_contributors)
+
     # Add directive
     app.add_directive("contributors", ContributorsDirective)
+
     # Add CSS
-    static_dir = str(Path(__file__).parent.joinpath("_static").absolute())
-    app.connect(
-        "builder-inited", (lambda app: app.config.html_static_path.append(static_dir))
-    )
     app.add_css_file("sphinx_contributors.css")
 
     return {

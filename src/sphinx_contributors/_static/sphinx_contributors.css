@@ -2,9 +2,14 @@
     display: flex;
 }
 
-.sphinx-contributors_contributor__contributions:before{
-    content: "-";
-    padding: 0 5px;
+.sphinx-contributors_contributor__contributions {
+    text-align: left;
+}
+
+.sphinx-contributors_contributor__contributions ul {
+    list-style-type: none;
+    padding: 10px;
+    padding-top: 0px;
 }
 
 .sphinx-contributors--avatars .sphinx-contributors_list {
@@ -18,6 +23,7 @@
 .sphinx-contributors--avatars .sphinx-contributors_list__item {
     list-style: none;
     text-align: center;
+    width: 17em;
 }
 
 .sphinx-contributors--avatars .sphinx-contributors_contributor {
@@ -25,9 +31,9 @@
 }
 
 .sphinx-contributors--avatars .sphinx-contributors_contributor__image {
+    display: block;
+    margin: auto;
     margin-top: 10px;
-    width: 150px;
-    height: 150px;
     object-fit: cover;
 }
 
